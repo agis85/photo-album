@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Iterator;
+import java.io.IOException;
 
 /**
  * Interface for storing images. Can be backed by a NoSQL db like HBase, or a relational DB,
@@ -15,8 +15,9 @@ public interface IStorage {
 	 * Store an image to the datastore
 	 * @param photo
 	 * @return true on success
+	 * @throws IOException 
 	 */
-	public boolean store(Photo photo);
+	public boolean store(Photo photo) throws IOException;
 	
 	/**
 	 * @param id
@@ -27,5 +28,5 @@ public interface IStorage {
 	/**
 	 * @return an iterator over photos
 	 */
-	public Iterator<Photo> getPhotos();
+	public Iterable<Photo> getPhotos();
 }

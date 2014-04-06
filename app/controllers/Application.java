@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -60,8 +61,13 @@ public class Application extends Controller {
 		
 		byte[] imgbytes = outstream.toByteArray();
 		Photo photo = new Photo(title, imgbytes, new Date());
-		
-		boolean success = storage.store(photo);
+		boolean success = false;
+		try {
+			success = storage.store(photo);
+		} catch (IOException e) {
+			flash("error", e.getMessage());
+			Logger.error("", e);
+		}
 		
 		if (!success) flash("error", "Image already exists");
 		else flash("success", "Image uploaded");
