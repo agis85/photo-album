@@ -1,5 +1,10 @@
-@(message: String)
-
 @main("Photos") {
-    
+	<div class="page-header" id="page_header">
+		@if(flash.contains("success")) {
+			<p class="alert alert-success">@flash.get("success")</p>
+		}
+		@if(flash.contains("error")) {
+			<p class="alert alert-error alert-warning">@flash.get("error")</p>
+		}
+	</div>
 }

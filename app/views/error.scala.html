@@ -1,0 +1,11 @@
+@(id: String, stacktrace: String)
+
+@main("Error") {
+	<div class="page-header" id="page_header">
+		<h1>Server error</h1>
+	</div>
+	<p>We've logged this with ID @id.</p>
+	@if(stacktrace != null) {
+		<pre>@stacktrace</pre>
+	}
+}

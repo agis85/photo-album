@@ -15,7 +15,9 @@ object ApplicationBuild extends Build {
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "commons-codec" % "commons-codec" % "1.7",
     "org.apache.commons" % "commons-lang3" % "3.1",
-    "commons-lang" % "commons-lang" % "2.5"
+    "commons-lang" % "commons-lang" % "2.5",
+    "org.apache.hadoop" % "hadoop-core" % "1.2.1",
+    "org.apache.hbase" % "hbase" % "0.94.4"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
