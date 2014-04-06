@@ -1,5 +1,6 @@
 package models;
 
+
 /**
  * Base class of a photo's comment
  * 
@@ -8,27 +9,28 @@ package models;
  */
 public class Comment {
 
-	private String id;
 	private String contents;
 	private Photo parent;
+	private Long date;
 	
 	public static enum Sentiment {
 		POSITIVE,
 		NEGATIVE
 	};
 	
-	public Comment(String contents, Photo parent) {
+	public Comment(String contents, Photo parent, Long date) {
 		this.contents = contents;
 		this.parent = parent;
+		this.date = date;
 	}
 	
-	public String getId() {
-		return id;
-	}
 	public String getContents() {
 		return contents;
 	}
 	public Photo getParent() {
 		return parent;
+	}
+	public Long getDate() {
+		return date;
 	}
 }

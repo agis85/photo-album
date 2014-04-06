@@ -9,4 +9,8 @@ GET     /                           controllers.Application.index()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Photos
-POST 	/upload 					controllers.Application.upload()
+POST 	/photo/upload				controllers.Application.upload()
+GET 	/photo/viewPhoto			controllers.Application.viewPhoto(id: String, date: Long)
+
+# Comments
+POST 	/comment/add				controllers.Application.addComment(id: String, date: Long)

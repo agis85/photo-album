@@ -9,6 +9,8 @@
 	</div>
 
 	@for(p <- Application.getStorage().getPhotos().iterator()) {
-		<img src="data:image/jpeg;base64,@p.getBase64()" class="photo-preview" />
+		<a href="@routes.Application.viewPhoto(p.getImageHash(), p.getDate())" data-toggle="modal">
+			<img src="data:image/jpeg;base64,@p.getContentsBase64()" class="photo-preview" />
+		</a>		
 	}
 }
