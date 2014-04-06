@@ -1,6 +1,9 @@
 package models;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+
+import utils.Utils;
 
 /**
  * A photo of the album. It contains a title, date and a byte representation of
@@ -20,6 +23,11 @@ public class Photo {
 		this.title = title;
 		this.contents = contents;
 		this.date = date;
+		try {
+			this.id = Utils.md5(contents);
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public String getTitle() {
