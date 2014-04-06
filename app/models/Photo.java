@@ -3,6 +3,8 @@ package models;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import utils.Utils;
 
 /**
@@ -44,5 +46,9 @@ public class Photo {
 	
 	public Date getDate() {
 		return date;
+	}
+	
+	public String getBase64() {
+		return Base64.encode(contents);
 	}
 }

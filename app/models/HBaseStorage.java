@@ -34,7 +34,7 @@ public class HBaseStorage implements IStorage {
 	
 	private static String TABLE_NAME = "PHOTO-STORE";
 	private static String[] COLUMN_FAMILY = {"cf"};
-	private static int KEY_LENGTH = 8 + 16; // 8 for timestamp + 16 for hash id
+	private static int KEY_LENGTH = 8 + 32; // 8 for timestamp + 32 for hash id
 	
 	Configuration configuration;
 	HTablePool pool;
@@ -63,7 +63,7 @@ public class HBaseStorage implements IStorage {
 			log.debug("Returning table to pool");
 			table.close();
 		}
-		return false;
+		return true;
 	}
 
 	@Override
@@ -120,12 +120,12 @@ public class HBaseStorage implements IStorage {
 	 * @return
 	 */
 	private byte[] getKey(Photo photo) {
-		long invTime = Integer.MAX_VALUE - photo.getDate().getTime();
+		long invTime = Long.MAX_VALUE - photo.getDate().getTime();
 		byte[] hash = photo.getId().getBytes();
 		
 		byte[] key = new byte[KEY_LENGTH];
 		Bytes.putLong(key, 0, invTime);
-		Bytes.putBytes(key, 9, hash, 0, 16);
+		Bytes.putBytes(key, 8, hash, 0, 32);
 		return key;
 	}
 	

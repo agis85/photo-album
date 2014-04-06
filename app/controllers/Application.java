@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -20,13 +19,15 @@ import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 public class Application extends Controller {
   
     public static Result index() {
         return ok(views.html.index.render());
     }
 
-    public static Result upload() {
+    public static Result upload() throws IOException {
     	DynamicForm form = Form.form().bindFromRequest();
     	String title = form.get("title");
     	
@@ -49,21 +50,25 @@ public class Application extends Controller {
 		
 		ByteArrayOutputStream outstream = new ByteArrayOutputStream();
 		BufferedImage image;
+		String base64 = null;
 		try {
 			image = ImageIO.read(file);
 			ImageIO.write(image, "jpg", outstream);
 			outstream.flush();
+			base64=Base64.encode(outstream.toByteArray());
 		} catch (Exception e) {
 			flash("error", "Error when reading an image: " + e.getMessage());
 			Logger.error("Image read error", e);
 			return badRequest(views.html.index.render());
-		}		
+		} finally {
+			outstream.close();
+		}
 		
-		byte[] imgbytes = outstream.toByteArray();
+		byte[] imgbytes = Base64.decode(base64);
 		Photo photo = new Photo(title, imgbytes, new Date());
 		boolean success = false;
 		try {
-			success = storage.store(photo);
+			success = getStorage().store(photo);
 		} catch (IOException e) {
 			flash("error", e.getMessage());
 			Logger.error("", e);

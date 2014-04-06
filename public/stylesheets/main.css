@@ -5,3 +5,8 @@
 .btn-toolbar {
 	margin-top: 7px;
 }
+
+.photo-preview {
+	max-height: 200px;
+	max-width: 300px;
+}
