@@ -96,7 +96,7 @@ public class HBaseStorage implements IStorage {
 	@Override
 	public Iterable<Photo> getPhotos() {
 		return new Iterable<Photo>() {
-			long numResults = 10;
+			long numResults = 20;
 					
 			@Override
 			public Iterator<Photo> iterator() {
@@ -294,7 +294,7 @@ public class HBaseStorage implements IStorage {
 	@Override
 	public Iterable<Comment> getComments(final Photo p) {
 		return new Iterable<Comment>() {
-			long numResults = 10;
+			long numResults = 20;
 			byte[] startRow = getCommentKey(p.getImageHash(), Long.MAX_VALUE);
 			byte[] stopRow = getCommentKey(p.getImageHash(), 0L);
 					
