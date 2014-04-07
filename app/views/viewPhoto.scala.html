@@ -1,0 +1,45 @@
+@(p: Photo)
+
+@main("View Photo") {
+
+<div class="modal fade" id="viewPhoto" role="dialog" aria-hidden="true" aria-labelledby="uploadLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+	        	<h4 class="modal-title" id="viewPhoto">Photo @p.getTitle</h4>
+	      	</div>
+
+		 	<div class="modal-body">
+		 		<div class="row">
+            		<div class="col-md-12">
+	                  	<div class="col-md-7">
+	                  		<img src="data:image/jpeg;base64,@p.getContentsBase64()" class="photo-preview" />
+	                   	</div>
+	                  	<div class="col-md-5">
+							@for(c <- Application.getStorage().getComments(p).iterator()) {
+								<div class="well well-sm">@c.getContents()</div>
+							}
+
+							@helper.form(routes.Application.addComment(p.getImageHash(), p.getDate())) {
+								<input text="textarea" placeholder="New comment..." class="form-control" name="comment_body">
+								<button class="btn pull-right btn-default">Add</button>
+							}
+                  		</div>
+              		</div>
+           		</div>
+			</div>
+
+			<div class="modal-footer">
+			  	<a class="btn btn-default btn-primary" href="/">Close</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+}
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#viewPhoto').modal('show') 
+	});
+</script>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>dfs.replication</name>
+		<value>1</value>
+	</property>
+
+	 <!--Path on the local filesystem where the NameNode stores the namespace and transactions logs persistently.	
+	 If this is a comma-delimited list of directories then the name table is replicated in all of the
+	 directories, for redundancy. -->
+	 <property>
+	  <name>dfs.name.dir</name>
+	  <value>/home/agis/CRITICAL/HDFS-NAME</value>
+	 </property>
+
+	 <!-- Comma separated list of paths on the local filesystem of a DataNode where it should store its blocks.
+	 If this is a comma-delimited list of directories, then data will be stored in all named directories, typically
+	 on different devices. -->
+	 <property>
+	  <name>dfs.data.dir</name>
+	  <value>/home/agis/CRITICAL/HDFS-DATA</value>
+	 </property>
+
+	 <property>
+	  <name>dfs.support.append</name>
+	  <value>true</value>
+	 </property>
+</configuration>
