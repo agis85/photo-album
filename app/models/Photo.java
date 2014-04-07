@@ -4,7 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import utils.Utils;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * A photo of the album. It contains a title, date and a byte representation of
@@ -57,6 +57,6 @@ public class Photo {
 	 * @return a base64 string of the photo's contents
 	 */
 	public String getContentsBase64() {
-		return Base64.encode(contents);
+		return Base64.encodeBase64String(contents);
 	}
 }

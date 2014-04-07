@@ -20,7 +20,9 @@ import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.codec.binary.Base64;
+
+
 
 public class Application extends Controller {
 	
@@ -67,7 +69,7 @@ public class Application extends Controller {
 			image = ImageIO.read(file);
 			ImageIO.write(image, "jpg", outstream);
 			outstream.flush();
-			base64=Base64.encode(outstream.toByteArray());
+			base64=Base64.encodeBase64String(outstream.toByteArray());
 		} catch (Exception e) {
 			flash("error", "Error when reading an image: " + e.getMessage());
 			Logger.error("Image read error", e);
@@ -76,7 +78,7 @@ public class Application extends Controller {
 			outstream.close();
 		}
 		
-		byte[] imgbytes = Base64.decode(base64);
+		byte[] imgbytes = Base64.decodeBase64(base64);
 		Photo photo = new Photo(title, imgbytes, new Date().getTime());
 		boolean success = false;
 		try {
